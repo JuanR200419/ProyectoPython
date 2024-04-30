@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <title>API Contactos- SP</title>
+</head>
+
+<body>
+    <H1>API Contactos</H1>
+    <form id="formulario">
+        <div class="form-now">
+            <div class="col">
+                <input type="text" id="nombre" class="form-control" placeholder="Nombre">
+            </div>
+            <div class="col">
+                <input type="text" id="correo" class="form-control" placeholder="Correo electronico">
+            </div>
+            <div class="col">
+                <input type="text" id="apellido" class="form-control" placeholder="Apellido">
+            </div>
+            <div class="col">
+                <input type="text" id="direccion" class="form-control" placeholder="Direccion">
+            </div>
+            <div class="col">
+                <input type="number" id="telefono" class="form-control" placeholder="Telefono">
+            </div>
+        </div>
+    </form>
+    <button type="button" class="btn btn-success" id="btnAgregar" onclick="agregarContacto()">AGREGAR CONTACTO</button>
+    <button type="button" class="btn btn-primary" id="btnActualizar" onclick="cargar()">ACTUALIZAR LISTA DE CONTACTOS</button>
+    <table id="table" class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Apellido</th>
+                <th>Direccion</th>
+                <th>Telefono</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody id="tbDatos">
+        </tbody>
+
+    </table>
+
+    <script>
+
+        async function agregarContacto(){
+            let cont = {}
+            cont.nombre = document.getElementById('nombre').value;
+            cont.correo = document.getElementById('correo').value;
+            cont.apellido = document.getElementById('apellido').value;
+            cont.direccion = document.getElementById('direccion').value;
+            cont.telefono = document.getElementById('telefono').value;
+            let url = 'http://127.0.0.1:8000/api/v1/contacto/agregar';
+            await enviarDatos(url,cont);
+        }
+
+        function eliminarFila(btnEliminar){
+            let fila = btnEliminar.parentNode.parentNode;
+            fila.parentNode.removeChild(fila);
+        }
+
+        async function enviarDatos(url,data){
+            await fetch(url,{
+                method : 'POST',
+                body : JSON.stringify(data),
+                headers:{
+                    "Content-type": "application/json; charset=UTF-8"
+                }
+            })
+            .then((res)=>res.json())
+            .then((res)=>
+                console.log(res));
+        }
+
+        async function cargar() {
+            let datos = await fetch('http://127.0.0.1:8000/api/v1/contactos')
+                .then(response => response.json())
+                .then((data) => {
+                    localStorage.setItem("Contactos",JSON.stringify(data));
+                    window.location.reload();
+                }).catch(
+                    function errorx() {
+                    return false;
+                }
+                );
+                return datos;
+        }
+
+        window.onload = async function(){
+            if(localStorage.getItem("Contactos")){
+                let contactos = JSON.parse(localStorage.getItem('Contactos'));
+                let tablx = document.getElementById('tbDatos')
+                for(let x in contactos){
+                    let cont = contactos[x]
+                    let tr = document.createElement('tr');
+                    for(let i in cont){
+                        let td = document.createElement('td');
+                        td.innerHTML = cont[i];
+                        tr.appendChild(td);
+                    }
+                    let td = document.createElement('td')
+                    let btnEliminar = document.createElement('button')
+                    btnEliminar.setAttribute('class','btn btnEliminar btn-danger');
+                    btnEliminar.innerHTML="Eliminar"
+                    btnEliminar.setAttribute('onclick','eliminarFila(this)');
+                    td.appendChild(btnEliminar);
+                    tr.appendChild(td)
+                    tablx.appendChild(tr)
+                }
+            }else{
+                alert("!! No hay datos en el localStrorage")
+            }
+        }
+    
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
