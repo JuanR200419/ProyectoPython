@@ -1,14 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contactos</title>
-    <link rel="stylesheet" href="css/styleLogin.css">
+    <link rel="stylesheet" href="css/style_registro.css">
 </head>
 <body>
     <section class="formulario">
         <h2>Registro de usuario</h2>
+        <form method="post">
+            <div class="campos">
+                <input type="text" required>
+                <label>Nombres</label>
+            </div>
+            <div class="campos">
+                <input type="text" required>
+                <label>Apellidos</label>
+            </div>
+            <div class="campos">
+                <input type="email" required>
+                <label>Correo electronico</label>
+            </div>
+            <div class="campos">
+                <input type="text" required>
+                <label>Dirección</label>
+            </div>
+            <div class="campos">
+                <input type="password" required>
+                <label>Contraseña</label>
+            </div>
+            <input type="submit" value="Registrarse">
+        </form>
     </section>
 </body>
 </html>
