@@ -12,6 +12,15 @@ body {
     background: linear-gradient(150deg,var(--color_azul_claro),var(--color_azul));
     height: 100vh;
 }
+.formulario{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 400px;
+    background: white;
+    border-radius: 10px;
+}
 
 .formulario{
     background: white;
@@ -68,6 +77,7 @@ input[type="submit"]{
     color: white;
     cursor: pointer;
     outline: none;
+    margin-bottom: 20px;
 }
 input[type="submit"]:hover{
     background-color: var(--color_azul_claro);

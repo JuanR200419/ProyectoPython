@@ -31,19 +31,19 @@ body{
     box-sizing: border-box;
 }
 
-form.campos{
+form.username{
     position: relative;
     border-bottom: 2px solid #adadad;
     margin: 30px 0;
 }
 
-.campos{
+.username{
     position: relative;
     border-bottom: 2px solid #adadad;
     margin: 30px 0 ;
 }
 
-.campos input {
+.username input {
     width: 100%;
     padding: 0 5px;
     height: 40px;
@@ -52,7 +52,7 @@ form.campos{
     background: none;
     outline: none;
 }
-.campos label{
+.username label{
     position: absolute;
     top: 50%;
     left: 5px;
@@ -62,7 +62,7 @@ form.campos{
     pointer-events: none;
 }
 
-.campos span::before{
+.username span::before{
     content: '';
     position: absolute;
     top: 40px;
@@ -72,14 +72,9 @@ form.campos{
     background: #6C3483;
     transition: 5s;
 }
-.campos input:focus ~ label,
-.campos input:focus ~ label{
+.username input ~ label{
     top: -5px;
-    color: crimson;
-}
-.campos input:focus ~ span::before,
-.campos input:focus ~ span::before{
-    width: 100%;
+    color: #6C3483;
 }
 
 input[type="submit"]{
