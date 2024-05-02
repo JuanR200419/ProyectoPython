@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+:root{
+    --color_rojo : #C81D25;
+    --color_azul : #000A23;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Mulish', sans-serif;
+    background: linear-gradient(150deg,var(--color_rojo),var(--color_azul));
+    height: 100vh;
+}
+
+.formulario{
+    background: white;
+    border-color: #000A23;
+}
